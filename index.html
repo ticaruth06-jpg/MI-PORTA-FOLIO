@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portafolio Académico · Nayeli Quispe Tica</title>
+<meta name="description" content="Portafolio académico de Nayeli Quispe Tica - Universidad Peruana Los Andes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- BARRA: logo + nombre de la universidad a la izquierda -->
+<header class="nav" id="nav">
+  <a class="uni" href="#top">
+    <span class="logo-pill"><img src="logo-universidad.png" alt="Logo UPLA" onerror="this.outerHTML='<b style=&quot;color:#0a56b4;letter-spacing:3px&quot;>UPLA</b>'"></span>
+    <span class="uni-name">Universidad Peruana Los Andes<small>HUANCAYO · PERÚ</small></span>
+  </a>
+  <div class="session">
+    <span class="badge" id="roleBadge" style="display:none"></span>
+    <button class="btn btn-glow" id="btnLogin" type="button">🔐 Iniciar sesión</button>
+    <button class="btn btn-glass" id="btnLogout" type="button" style="display:none">Salir</button>
+  </div>
+</header>
+
+<!-- PORTADA -->
+<section class="hero" id="top">
+  <canvas id="bg"></canvas>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="hero-grid">
+    <div>
+      <span class="hello"><span class="wave">👋</span> Bienvenido a mi portafolio académico</span>
+      <h1>Hola, soy<br><span id="heroNombre">Nayeli Quispe Tica</span></h1>
+      <div class="typed" id="typed"></div>
+      <div class="chips">
+        <span class="chip">🎓 Universidad Peruana Los Andes</span>
+        <span class="chip">🪪 Código: <b id="heroCodigo">U00057H</b></span>
+      </div>
+      <div class="cta">
+        <a class="btn btn-glow" href="#cursos">🚀 Ver mis cursos</a>
+        <a class="btn btn-glass" href="#cursos" onclick="selectCourse('taller')">💻 Desarrollo de Aplicaciones</a>
+      </div>
+    </div>
+    <div class="photo-wrap">
+      <div class="orbit"><i><span>🧮</span></i><i><span>💻</span></i><i><span>☕</span></i><i><span>📊</span></i></div>
+      <div class="photo"><img src="foto-estudiante.png" alt="Foto de Nayeli Quispe Tica" onerror="this.outerHTML='<div class=&quot;ini&quot;>NQ</div>'"></div>
+    </div>
+  </div>
+  <div class="scroll"></div>
+</section>
+
+<!-- NÚMEROS -->
+<section class="stats">
+  <div class="stat reveal"><div class="si">📚</div><div><b data-count="2">0</b><span>Cursos</span></div></div>
+  <div class="stat reveal"><div class="si">🗓️</div><div><b data-count="32">0</b><span>Semanas de estudio</span></div></div>
+  <div class="stat reveal"><div class="si">✅</div><div><b id="statWorks">0</b><span>Tareas publicadas</span></div></div>
+  <div class="stat reveal"><div class="si">🎓</div><div><b class="txt">UPLA</b><span>Ingeniería de Sistemas</span></div></div>
+</section>
+
+<section class="sobre reveal">
+  <h3>✨ Sobre mi portafolio</h3>
+  <p>Aquí reúno mis trabajos semana por semana: código, informes y proyectos de mis cursos.</p>
+  <div class="tech"><span>☕ Java</span><span>🧩 POO</span><span>🗄️ Base de datos</span><span>🌐 HTML · CSS · JS</span><span>🐙 GitHub</span><span>🛠️ NetBeans</span></div>
+</section>
+
+<main id="cursos">
+  <div class="sec-h reveal"><h2>Mis <span>cursos</span></h2><p id="estado-publicacion">Aquí puedes ver todas las tareas publicadas, semana por semana.</p></div>
+  <div class="courses" id="courses"></div>
+  <div id="units"></div>
+</main>
+
+<footer>
+  <div class="footer-card">💡 <strong>Consejo:</strong> "Desarrollar sistemas no es solo hacer que el código funcione, es diseñar soluciones robustas, escalables y elegantes que transformen ideas complejas en experiencias simples."</div>
+  <p>© 2026 Nayeli Quispe Tica · Universidad Peruana Los Andes · Hecho con 💙</p>
+</footer>
+
+<!-- SEMANA -->
+<div class="overlay" id="weekOv">
+  <div class="modal">
+    <div class="modal-head"><small id="wCourse"></small><h3 id="wTitle"></h3><button class="close" data-close type="button">✕</button></div>
+    <div class="modal-body">
+      <div class="admin-only" id="adminTools">
+        <div class="sec-title">Tema de la semana</div>
+        <div class="row-form" style="margin-top:0">
+          <input type="text" id="topicInput" placeholder="Escribe el tema de la semana">
+          <button class="btn btn-soft sm" id="saveTopic" type="button">✏️ Guardar tema</button>
+        </div>
+        <div class="sec-title">Subir trabajo a esta semana</div>
+        <div class="drop">
+          <div style="font-size:2.2rem">📤</div>
+          <a class="btn btn-glow" id="upGh" target="_blank" rel="noopener">➕ Subir archivos (PDF, ZIP, imágenes, carpetas)</a>
+          <p>Se abre GitHub en la carpeta de esta semana: arrastra tus archivos y pulsa el botón verde <b>Commit changes</b>.</p>
+        </div>
+        <div class="row-form">
+          <input type="url" id="linkUrl" placeholder="Pega aquí el enlace (https://...)">
+          <button class="btn btn-soft sm" id="addLink" type="button">🔗 Añadir enlace</button>
+        </div>
+        <div class="note">⏳ Lo que subas lo verá el profesor en aproximadamente 1 minuto. Si te equivocas, pulsa <b>🗑 Descartar</b> en el archivo.<br><button class="btn btn-soft sm" id="btnRefresh" type="button" style="margin-top:8px">↻ Actualizar lista</button></div>
+      </div>
+      <div id="wContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SESIÓN -->
+<div class="overlay" id="loginOv">
+  <div class="modal" style="width:min(460px,100%)">
+    <div class="modal-head"><small>Acceso</small><h3>Iniciar sesión</h3><button class="close" data-close type="button">✕</button></div>
+    <div class="modal-body">
+      <div class="pane on" id="pane-admin">
+        <div class="big">🔐</div>
+        <p>Ingresa tu clave para subir tus trabajos, verlos y descartar los que te equivoques.</p>
+        <div class="row-form" style="margin-top:0;justify-content:center"><input type="password" id="passIn" placeholder="Tu contraseña" autocomplete="off"><button class="btn btn-glow" id="loginAdmin" type="button">Entrar</button></div>
+        <div class="err" id="loginErr">La clave es incorrecta.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VISOR (imágenes con zoom, PDF) -->
+<div id="viewer">
+  <div class="vbar">
+    <strong id="vTitle"></strong>
+    <div class="vacts">
+      <button id="vOut" type="button" title="Alejar (-)">➖</button>
+      <span id="vZoom">100%</span>
+      <button id="vIn" type="button" title="Acercar (+)">➕</button>
+      <button id="vReset" type="button" title="Tamaño normal (0)">⟲ Normal</button>
+      <button id="vDl" type="button">📥 Descargar</button>
+      <button id="vClose" type="button">✕ Cerrar</button>
+    </div>
+  </div>
+  <div class="vstage" id="vStage">
+    <button class="vnav prev" id="vPrev" type="button">‹</button>
+    <img id="vImg" alt="" draggable="false">
+    <iframe id="vFrame" title="Documento"></iframe>
+    <div id="vInfo"></div>
+    <button class="vnav next" id="vNext" type="button">›</button>
+  </div>
+  <div class="vhint">Clic en la imagen para acercar o alejar · rueda del mouse · arrastra para moverla · en el celular, pellizca con dos dedos</div>
+</div>
+
+<canvas id="confetti"></canvas>
+<div id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
